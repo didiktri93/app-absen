@@ -41,12 +41,12 @@ class KantorResource extends Resource
                         $longitude = $record->longitude;
 
                         if ($latitude && $longitude) {
-                            $set('location', ['lat' => $latitude, 'long' => $longitude]);
+                            $set('location', ['lat' => $latitude, 'lng' => $longitude]);
                         }
                     })
                     ->afterStateUpdated(function ($state, Forms\Get $get, Forms\Set $set) {
                         $set('latitude', $state['lat']);
-                        $set('longitude', $state['long']);
+                        $set('longitude', $state['lng']);
                     })
                     ->tilesUrl('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
                 Forms\Components\TextInput::make('latitude')

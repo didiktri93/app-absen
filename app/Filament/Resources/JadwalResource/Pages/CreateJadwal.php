@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateJadwal extends CreateRecord
 {
     protected static string $resource = JadwalResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['jadwal_id'] = uniqid();
+
+        return $data;
+    }
 }

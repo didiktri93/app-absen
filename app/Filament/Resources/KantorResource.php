@@ -18,43 +18,57 @@ class KantorResource extends Resource
 {
     protected static ?string $model = Kantor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama_kntr')
-                    ->required()
-                    ->maxLength(255),
-                OSMMap::make('location')
-                    ->label('Location')
-                    ->showMarker()
-                    ->draggable()
-                    ->extraControl([
-                        'zoomDelta'           => 1,
-                        'zoomSnap'            => 0.25,
-                        'wheelPxPerZoomLevel' => 60
-                    ])
-                    ->afterStateHydrated(function (Forms\Get $get, Forms\Set $set, $record) {
-                        $latitude = $record->latitude;
-                        $longitude = $record->longitude;
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\TextInput::make('nama_kntr')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('latitude')
+                                    ->numeric(),
+                                Forms\Components\TextInput::make('longitude')
+                                    ->numeric(),
+                                Forms\Components\TextInput::make('radius')
+                                    ->numeric(),
+                            ])
+                    ]),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                OSMMap::make('location')
+                                    ->label('Location')
+                                    ->showMarker()
+                                    ->draggable()
+                                    ->extraControl([
+                                        'zoomDelta'           => 1,
+                                        'zoomSnap'            => 0.25,
+                                        'wheelPxPerZoomLevel' => 60
+                                    ])
+                                    ->afterStateHydrated(function (Forms\Get $get, Forms\Set $set, $record) {
+                                        $latitude = $record->latitude;
+                                        $longitude = $record->longitude;
 
-                        if ($latitude && $longitude) {
-                            $set('location', ['lat' => $latitude, 'lng' => $longitude]);
-                        }
-                    })
-                    ->afterStateUpdated(function ($state, Forms\Get $get, Forms\Set $set) {
-                        $set('latitude', $state['lat']);
-                        $set('longitude', $state['lng']);
-                    })
-                    ->tilesUrl('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
-                Forms\Components\TextInput::make('latitude')
-                    ->numeric(),
-                Forms\Components\TextInput::make('longitude')
-                    ->numeric(),
-                Forms\Components\TextInput::make('radius')
-                    ->numeric(),
+                                        if ($latitude && $longitude) {
+                                            $set('location', ['lat' => $latitude, 'lng' => $longitude]);
+                                        }
+                                    })
+                                    ->afterStateUpdated(function ($state, Forms\Get $get, Forms\Set $set) {
+                                        $set('latitude', $state['lat']);
+                                        $set('longitude', $state['lng']);
+                                    })
+                                    ->tilesUrl('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
+                                Forms\Components\TextInput::make('radius')
+                                    ->numeric(),
+                            ])
+                    ])
             ]);
     }
 
@@ -62,8 +76,6 @@ class KantorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kntr_id')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('nama_kntr')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('latitude')

@@ -17,21 +17,27 @@ class JadwalResource extends Resource
 {
     protected static ?string $model = Jadwal::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\Select::make('kntr_id')
-                    ->relationship('kantor', 'kntr_id')
-                    ->required(),
-                Forms\Components\Select::make('shift_id')
-                    ->relationship('shift', 'shift_id')
-                    ->required(),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\Select::make('user_id')
+                                    ->relationship('user', 'name')
+                                    ->required(),
+                                Forms\Components\Select::make('kntr_id')
+                                    ->relationship('kantor', 'nama_kntr')
+                                    ->required(),
+                                Forms\Components\Select::make('shift_id')
+                                    ->relationship('shift', 'nama_shift')
+                                    ->required(),
+                            ])
+                    ])
             ]);
     }
 
@@ -39,13 +45,11 @@ class JadwalResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('jadwal_id')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kntr_id')
+                Tables\Columns\TextColumn::make('kantor.nama_kntr')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('shift.shift_id')
+                Tables\Columns\TextColumn::make('shift.nama_shift')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

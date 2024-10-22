@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Filament\Resources\JadwalResource\Pages;
+namespace App\Filament\Resources\KehadiranResource\Pages;
 
-use App\Filament\Resources\JadwalResource;
+use App\Filament\Resources\KehadiranResource;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
-class ListJadwals extends ListRecords
+class ListKehadirans extends ListRecords
 {
-    protected static string $resource = JadwalResource::class;
+    protected static string $resource = KehadiranResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Action::make('Presensi')
                 ->url(route('presensi'))
-                ->color('warning'),
+                ->color('success'),
             Actions\CreateAction::make(),
         ];
     }

@@ -27,6 +27,7 @@ class JadwalResource extends Resource
                     ->schema([
                         Forms\Components\Section::make()
                             ->schema([
+                                Forms\Components\Toggle::make('banned'),
                                 Forms\Components\Select::make('user_id')
                                     ->relationship('user', 'name')
                                     ->required(),
@@ -36,6 +37,7 @@ class JadwalResource extends Resource
                                 Forms\Components\Select::make('shift_id')
                                     ->relationship('shift', 'nama_shift')
                                     ->required(),
+                                Forms\Components\Toggle::make('wfa')
                             ])
                     ])
             ]);
@@ -44,12 +46,26 @@ class JadwalResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                $superadmin = auth()->user()->hasRole('super_admin');
+
+                if (!$superadmin) {
+                    $query->where('user_id', auth()->user()->id);
+                    return $query;
+                }
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kantor.nama_kntr')
-                    ->searchable(),
+                Tables\Columns\ToggleColumn::make('banned')
+                    ->label('Banned')
+                    ->hidden(fn() => !auth()->user()->hasRole('super_admin')),
+                Tables\Columns\BooleanColumn::make('wfa')
+                    ->label('WFA'),
                 Tables\Columns\TextColumn::make('shift.nama_shift')
+                    ->description(fn(Jadwal $record): string => $record->shift->jam_mulai . ' - ' . $record->shift->jam_selesai)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('kantor.nama_kntr')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

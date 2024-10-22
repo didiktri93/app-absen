@@ -18,8 +18,10 @@ return new class extends Migration
             $table->double('jadwal_longitude');
             $table->time('jadwal_jam_mulai');
             $table->time('jadwal_jam_selesai');
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('start_latitude');
+            $table->double('start_longitude');
+            $table->double('end_latitude');
+            $table->double('end_longitude');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

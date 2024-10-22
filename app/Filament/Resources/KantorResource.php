@@ -53,11 +53,13 @@ class KantorResource extends Resource
                                         'wheelPxPerZoomLevel' => 60
                                     ])
                                     ->afterStateHydrated(function (Forms\Get $get, Forms\Set $set, $record) {
-                                        $latitude = $record->latitude;
-                                        $longitude = $record->longitude;
+                                        if ($record) {
+                                            $latitude = $record->latitude;
+                                            $longitude = $record->longitude;
 
-                                        if ($latitude && $longitude) {
-                                            $set('location', ['lat' => $latitude, 'lng' => $longitude]);
+                                            if ($latitude && $longitude) {
+                                                $set('location', ['lat' => $latitude, 'lng' => $longitude]);
+                                            }
                                         }
                                     })
                                     ->afterStateUpdated(function ($state, Forms\Get $get, Forms\Set $set) {

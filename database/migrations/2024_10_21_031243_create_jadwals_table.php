@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('user_id', 15)->unique()->references('id')->on('users')->onDelete('cascade');
             $table->string('kntr_id', 15)->references('kntr_id')->on('m_kantor')->onDelete('cascade');
             $table->string('shift_id', 15)->references('shift_id')->on('m_shift')->onDelete('cascade');
+            $table->boolean('wfa')->default(false);
+            $table->boolean('banned')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

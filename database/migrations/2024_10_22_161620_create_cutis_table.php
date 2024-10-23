@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->string('status');
+            $table->text('alasan');
+            $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
+            $table->text('catatan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cutis');
+        Schema::dropIfExists('tr_cuti');
     }
 };

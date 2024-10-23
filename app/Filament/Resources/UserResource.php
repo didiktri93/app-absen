@@ -40,6 +40,9 @@ class UserResource extends Resource
                                     ->multiple()
                                     ->preload()
                                     ->searchable(),
+                                Forms\Components\FileUpload::make('image')
+                                    ->label('Foto Profil')
+                                    ->image(),
                             ])
                     ]),
                 Forms\Components\Group::make()
@@ -62,6 +65,8 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')

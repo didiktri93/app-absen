@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Cuti;
 use App\Models\Jadwal;
 use App\Models\Kehadiran;
 use Carbon\Carbon;
@@ -30,6 +31,16 @@ class Presensi extends Component
 
         $jadwal = Jadwal::where('user_id', auth()->user()->id)->first();
 
+        $today = Carbon::today()->format('Y-m-d');
+        $approveCuti = Cuti::where('user_id', auth()->user()->id)
+            ->whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->exists();
+
+        if ($approveCuti) {
+            session()->flash('error', 'Anda sedang melakukan cuti.');
+            return;
+        }
         if ($jadwal) {
             $kehadiran = Kehadiran::where('user_id', auth()->user()->id)
                 ->whereDate('created_at', Carbon::today()->format('Y-m-d'))->first();

@@ -10,7 +10,7 @@ class Kehadiran extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_kehadiran';
+    protected $table = 'tr_kehadiran';
     protected $primaryKey = 'kehadiran_id';
     public $incrementing = false;
 

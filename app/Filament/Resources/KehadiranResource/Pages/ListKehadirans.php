@@ -14,6 +14,9 @@ class ListKehadirans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('Export Excel')
+                ->url(route('presensi-export'))
+                ->color('danger'),
             Action::make('Presensi')
                 ->url(route('presensi'))
                 ->color('success'),

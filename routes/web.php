@@ -1,7 +1,9 @@
 <?php
 
+use App\Exports\KehadiranExport;
 use App\Livewire\Presensi;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +26,8 @@ Route::get('/login', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('presensi', Presensi::class)->name('presensi');
+
+    Route::get('kehadiran/export', function () {
+        return Excel::download(new KehadiranExport, 'kehadiran.xlsx');
+    })->name('presensi-export');
 });

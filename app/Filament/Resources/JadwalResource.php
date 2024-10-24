@@ -18,6 +18,7 @@ class JadwalResource extends Resource
     protected static ?string $model = Jadwal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationGroup = 'Absensi Management';
 
     public static function form(Form $form): Form
     {

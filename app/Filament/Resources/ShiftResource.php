@@ -18,6 +18,7 @@ class ShiftResource extends Resource
     protected static ?string $model = Shift::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $navigationGroup = 'Kantor Management';
 
     public static function form(Form $form): Form
     {

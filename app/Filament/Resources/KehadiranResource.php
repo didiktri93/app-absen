@@ -17,7 +17,8 @@ class KehadiranResource extends Resource
 {
     protected static ?string $model = Kehadiran::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $navigationGroup = 'Absensi Management';
 
     public static function form(Form $form): Form
     {

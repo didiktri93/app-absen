@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('get-kehadiran-today', [KehadiranController::class, 'getKehadiranToday']);
     Route::get('get-jadwal', [KehadiranController::class, 'getJadwal']);
+    Route::post('store-kehadiran', [KehadiranController::class, 'store']);
+    Route::get('get-kehadiran-month-year/{month}/{year}', [KehadiranController::class, 'getKehadiranMonthAndYear']);
+    Route::post('banned', [KehadiranController::class, 'banned']);
+    Route::get('get-image', [KehadiranController::class, 'getImage']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

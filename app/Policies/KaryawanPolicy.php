@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Cuti;
+use App\Models\Karyawan;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CutiPolicy
+class KaryawanPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class CutiPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cuti');
+        return $user->can('view_any_karyawan');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Cuti $cuti): bool
+    public function view(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('view_cuti');
+        return $user->can('view_karyawan');
     }
 
     /**
@@ -31,23 +31,23 @@ class CutiPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cuti');
+        return $user->can('create_karyawan');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Cuti $cuti): bool
+    public function update(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('update_cuti');
+        return $user->can('update_karyawan');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Cuti $cuti): bool
+    public function delete(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('delete_cuti');
+        return $user->can('delete_karyawan');
     }
 
     /**
@@ -55,15 +55,15 @@ class CutiPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cuti');
+        return $user->can('delete_any_karyawan');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Cuti $cuti): bool
+    public function forceDelete(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('force_delete_cuti');
+        return $user->can('force_delete_karyawan');
     }
 
     /**
@@ -71,15 +71,15 @@ class CutiPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cuti');
+        return $user->can('force_delete_any_karyawan');
     }
 
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Cuti $cuti): bool
+    public function restore(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('restore_cuti');
+        return $user->can('restore_karyawan');
     }
 
     /**
@@ -87,15 +87,15 @@ class CutiPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cuti');
+        return $user->can('restore_any_karyawan');
     }
 
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Cuti $cuti): bool
+    public function replicate(User $user, Karyawan $karyawan): bool
     {
-        return $user->can('replicate_cuti');
+        return $user->can('replicate_karyawan');
     }
 
     /**
@@ -103,6 +103,6 @@ class CutiPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cuti');
+        return $user->can('reorder_karyawan');
     }
 }

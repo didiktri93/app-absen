@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AbsenController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\KehadiranController;
 use Illuminate\Http\Request;
@@ -25,6 +26,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('banned', [KehadiranController::class, 'banned']);
     Route::get('get-image', [KehadiranController::class, 'getImage']);
 });
+
+Route::post('store-absen', [AbsenController::class, 'storeAbsen']);
+Route::post('get-absen-today', [AbsenController::class, 'getAbsenToday']);
+Route::post('get-karyawan', [AbsenController::class, 'getKaryawan']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

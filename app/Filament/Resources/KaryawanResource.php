@@ -95,6 +95,7 @@ class KaryawanResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('doj')
+                    ->label('Tanggal Bergabung')
                     ->required(),
                 Forms\Components\TextInput::make('masa_kerja')
                     ->label('Masa Kerja')
@@ -180,82 +181,121 @@ class KaryawanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('no_id')
+                    ->label('NIK')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('departement')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama_lengkap')
+                    ->label('Nama Lengkap')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('divisi')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nik_ktp')
+                    ->label('No. KTP')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('no_kk')
+                    ->label('No. KK')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tempat_lahir')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_lahir')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('usia')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_kelamin')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('domisili')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kode_pos')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('agama')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('no_telepon')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pendidikan_terakhir')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama_sekolah')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jurusan')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('doj')
+                    ->label('Tanggal Bergabung')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('masa_kerja')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('posisi')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_pkwt')
+                    ->label('Mulai PKWT')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('end')
+                    ->label('Selesai PKWT')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status_pernikahan')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('rekening')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('bpjs_kes')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('bpjs_tk')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cv')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('foto')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ktp')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('skck')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('npwp')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ptkp')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama_kontak_darurat')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('no_telepon_kontak_darurat')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

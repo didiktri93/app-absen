@@ -16,6 +16,7 @@ use Humaidem\FilamentMapPicker\Fields\OSMMap;
 
 class KantorResource extends Resource
 {
+    protected static ?string $pluralLabel = 'Kantor';
     protected static ?string $model = Kantor::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';

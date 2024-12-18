@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JadwalResource extends Resource
 {
+    protected static ?string $pluralLabel = 'Jadwal';
     protected static ?string $model = Jadwal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
@@ -30,7 +31,7 @@ class JadwalResource extends Resource
                             ->schema([
                                 Forms\Components\Toggle::make('banned'),
                                 Forms\Components\Select::make('user_id')
-                                    ->relationship('user', 'name')
+                                    ->relationship('karyawan', 'nama_lengkap')
                                     ->required(),
                                 Forms\Components\Select::make('kntr_id')
                                     ->relationship('kantor', 'nama_kntr')
@@ -51,12 +52,12 @@ class JadwalResource extends Resource
                 $superadmin = auth()->user()->hasRole('super_admin');
 
                 if (!$superadmin) {
-                    $query->where('user_id', auth()->user()->id);
+                    $query->where('user_id', auth()->user()->id_karyawan);
                     return $query;
                 }
             })
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('karyawan.nama_lengkap')
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('banned')
                     ->label('Banned')

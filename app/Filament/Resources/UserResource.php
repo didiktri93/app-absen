@@ -30,11 +30,11 @@ class UserResource extends Resource
                     ->schema([
                         Forms\Components\Section::make()
                             ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('email')
-                                    ->email()
+                                Forms\Components\Select::make('id_karyawan')
+                                    ->relationship('karyawan', 'nama_lengkap')
+                                    ->searchable()
+                                    ->required(),
+                                Forms\Components\TextInput::make('username')
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\Select::make('roles')
@@ -42,16 +42,12 @@ class UserResource extends Resource
                                     ->multiple()
                                     ->preload()
                                     ->searchable(),
-                                Forms\Components\FileUpload::make('image')
-                                    ->label('Foto Profil')
-                                    ->image(),
                             ])
                     ]),
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make()
                             ->schema([
-                                Forms\Components\DateTimePicker::make('email_verified_at'),
                                 Forms\Components\TextInput::make('password')
                                     ->password()
                                     ->maxLength(255)
@@ -67,23 +63,17 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')
-                    ->circular(),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('id_karyawan')
+                    ->default('Super')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('karyawan.nama_lengkap')
+                    ->default('Super')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('username')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

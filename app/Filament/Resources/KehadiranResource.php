@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class KehadiranResource extends Resource
 {
+    protected static ?string $pluralLabel = 'Kehadiran';
     protected static ?string $model = Kehadiran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
@@ -25,7 +26,7 @@ class KehadiranResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user')
-                    ->relationship('user', 'name')
+                    ->relationship('karyawan', 'nama_lengkap')
                     ->disabled(),
                 Forms\Components\TextInput::make('jadwal_latitude')
                     ->required()
@@ -61,7 +62,7 @@ class KehadiranResource extends Resource
                 $superadmin = auth()->user()->hasRole('super_admin');
 
                 if (!$superadmin) {
-                    $query->where('user_id', auth()->user()->id);
+                    $query->where('user_id', auth()->user()->id_karyawan);
                     return $query;
                 }
             })
@@ -70,7 +71,7 @@ class KehadiranResource extends Resource
                     ->label('Tanggal')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('karyawan.nama_lengkap')
                     ->label('Pegawai')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('terlambat')

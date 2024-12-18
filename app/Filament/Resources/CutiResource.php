@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CutiResource extends Resource
 {
+    protected static ?string $pluralLabel = 'Cuti';
     protected static ?string $model = Cuti::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-x-circle';
@@ -58,6 +59,14 @@ class CutiResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                $superadmin = auth()->user()->hasRole('super_admin');
+
+                if (!$superadmin) {
+                    $query->where('user_id', auth()->user()->id_karyawan);
+                    return $query;
+                }
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()

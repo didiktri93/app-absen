@@ -28,8 +28,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::post('store-absen', [AbsenController::class, 'storeAbsen']);
-Route::post('get-absen-today', [AbsenController::class, 'getAbsenToday']);
-Route::post('get-karyawan', [AbsenController::class, 'getKaryawan']);
+Route::post('store-sqlt-absen', [AbsenController::class, 'storeSliteAbsen']);
+Route::post('store-sqlt-wajah', [AbsenController::class, 'storeSliteWajah']);
+Route::get('get-absen-today', [AbsenController::class, 'getAbsenToday']);
+Route::get('get-karyawan', [AbsenController::class, 'getKaryawan']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

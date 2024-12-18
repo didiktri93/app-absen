@@ -21,6 +21,11 @@ class Jadwal extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function karyawan(): BelongsTo
+    {
+        return $this->belongsTo(Karyawan::class, 'user_id', 'no_id');
+    }
+
     public function shift(): BelongsTo
     {
         return $this->belongsTo(Shift::class, 'shift_id');

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasName
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
@@ -19,10 +22,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'id_karyawan',
+        'username',
         'password',
-        'image',
     ];
 
     /**
@@ -41,7 +43,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -50,8 +51,18 @@ class User extends Authenticatable
         return $this->hasMany(Cuti::class);
     }
 
+    public function karyawan(): BelongsTo
+    {
+        return $this->belongsTo(Karyawan::class, 'id_karyawan', 'no_id');
+    }
+
     public function getImageUrlAttribute()
     {
         return $this->image ? asset('storage/' . $this->image) : null;
+    }
+    public function getFilamentName(): string
+    {
+        $user = $this->karyawan->nama_lengkap ?? 'Super';
+        return $user;
     }
 }

@@ -28,11 +28,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Livewire::setScriptRoute(function ($handle) {
-            return Route::get('/app-absen/public/livewire/livewire.js', $handle);
+            return Route::get('/absen/public/livewire/livewire.js', $handle);
         });
 
         Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/app-absen/public/livewire/update', $handle);
+            return Route::post('/absen/public/livewire/update', $handle);
         });
     }
 }

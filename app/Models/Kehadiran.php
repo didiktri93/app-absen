@@ -21,9 +21,13 @@ class Kehadiran extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'user_id', 'no_id');
+    }
+
     public function terlambat()
     {
-
         $jadwal_jam_mulai = Carbon::parse($this->jadwal_jam_mulai);
         $jam_mulai = Carbon::parse($this->jam_mulai);
 
